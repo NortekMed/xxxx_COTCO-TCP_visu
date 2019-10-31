@@ -1,0 +1,62 @@
+C:\Users\cotco\Documents\cotco\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.csprojResolveAssemblyReference.cache
+C:\Users\cotco\Documents\cotco\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.Form1.resources
+C:\Users\cotco\Documents\cotco\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.Properties.Resources.resources
+C:\Users\cotco\Documents\cotco\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.csproj.GenerateResource.Cache
+C:\Users\cotco\Documents\cotco\visu_cotco\visu_cotco\bin\Debug\visu_cotco.exe
+C:\Users\cotco\Documents\cotco\visu_cotco\visu_cotco\bin\Debug\visu_cotco.pdb
+C:\Users\cotco\Documents\cotco\visu_cotco\visu_cotco\bin\Debug\FirebirdSql.Data.FirebirdClient.dll
+C:\Users\cotco\Documents\cotco\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.exe
+C:\Users\cotco\Documents\cotco\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.pdb
+C:\Users\cotco\Documents\cotco\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.exe.licenses
+C:\Users\cotco\Documents\cotco\visu_cotco\visu_cotco\bin\Debug\visu_cotco.exe.config
+C:\Users\cotco\Documents\cotco\visu_cotco\visu_cotco\bin\Debug\TeeChart.dll
+C:\Users\cotco\Documents\cotco\visu_cotco\visu_cotco\bin\Debug\TeeChart.xml
+C:\Users\thierry\Documents\thierry\travail\COTCO_FINAL\visu_cotco\visu_cotco\bin\Debug\visu_cotco.exe.config
+C:\Users\thierry\Documents\thierry\travail\COTCO_FINAL\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.exe
+C:\Users\thierry\Documents\thierry\travail\COTCO_FINAL\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.pdb
+C:\Users\thierry\Documents\thierry\travail\COTCO_FINAL\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.csprojResolveAssemblyReference.cache
+C:\Users\thierry\Documents\thierry\travail\COTCO_FINAL\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.Form1.resources
+C:\Users\thierry\Documents\thierry\travail\COTCO_FINAL\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.Properties.Resources.resources
+C:\Users\thierry\Documents\thierry\travail\COTCO_FINAL\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.csproj.GenerateResource.Cache
+C:\Users\thierry\Documents\thierry\travail\COTCO_FINAL\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.exe.licenses
+C:\Users\thierry\Documents\thierry\travail\COTCO_FINAL\visu_cotco\visu_cotco\bin\Debug\visu_cotco.exe
+C:\Users\thierry\Documents\thierry\travail\COTCO_FINAL\visu_cotco\visu_cotco\bin\Debug\visu_cotco.pdb
+C:\Users\thierry\Documents\thierry\travail\COTCO_FINAL\visu_cotco\visu_cotco\bin\Debug\TeeChart.dll
+C:\Users\thierry\Documents\thierry\travail\COTCO_FINAL\visu_cotco\visu_cotco\bin\Debug\TeeChart.xml
+C:\Users\thierryS\Documents\travail\COTCO_FINAL\visu_cotco\visu_cotco\bin\Debug\visu_cotco.exe.config
+C:\Users\thierryS\Documents\travail\COTCO_FINAL\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.exe
+C:\Users\thierryS\Documents\travail\COTCO_FINAL\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.pdb
+C:\Users\thierryS\Documents\travail\COTCO_FINAL\visu_cotco\visu_cotco\bin\Debug\visu_cotco.exe
+C:\Users\thierryS\Documents\travail\COTCO_FINAL\visu_cotco\visu_cotco\bin\Debug\visu_cotco.pdb
+C:\Users\thierryS\Documents\travail\COTCO_FINAL\visu_cotco\visu_cotco\bin\Debug\FirebirdSql.Data.FirebirdClient.dll
+C:\Users\thierryS\Documents\travail\COTCO_FINAL\visu_cotco\visu_cotco\bin\Debug\TeeChart.xml
+C:\Users\thierryS\Documents\travail\COTCO_FINAL\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.csprojResolveAssemblyReference.cache
+C:\Users\thierryS\Documents\travail\COTCO_FINAL\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.Form1.resources
+C:\Users\thierryS\Documents\travail\COTCO_FINAL\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.Properties.Resources.resources
+C:\Users\thierryS\Documents\travail\COTCO_FINAL\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.csproj.GenerateResource.Cache
+C:\Users\thierryS\Documents\travail\COTCO_FINAL\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.exe.licenses
+C:\Users\thierryS\Documents\travail\COTCO_TCP\visu_cotco\visu_cotco\bin\Debug\visu_cotco.exe.config
+C:\Users\thierryS\Documents\travail\COTCO_TCP\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.exe
+C:\Users\thierryS\Documents\travail\COTCO_TCP\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.pdb
+C:\Users\thierryS\Documents\travail\COTCO_TCP\visu_cotco\visu_cotco\bin\Debug\visu_cotco.exe
+C:\Users\thierryS\Documents\travail\COTCO_TCP\visu_cotco\visu_cotco\bin\Debug\visu_cotco.pdb
+C:\Users\thierryS\Documents\travail\COTCO_TCP\visu_cotco\visu_cotco\bin\Debug\FirebirdSql.Data.FirebirdClient.dll
+C:\Users\thierryS\Documents\travail\COTCO_TCP\visu_cotco\visu_cotco\bin\Debug\TeeChart.xml
+C:\Users\thierryS\Documents\travail\COTCO_TCP\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.csprojResolveAssemblyReference.cache
+C:\Users\thierryS\Documents\travail\COTCO_TCP\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.Form1.resources
+C:\Users\thierryS\Documents\travail\COTCO_TCP\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.Properties.Resources.resources
+C:\Users\thierryS\Documents\travail\COTCO_TCP\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.csproj.GenerateResource.Cache
+C:\Users\thierryS\Documents\travail\COTCO_TCP\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.exe.licenses
+E:\OneDrive - Nortek AS\NortekMed\30-Affaires\COTCO_TCP\visu_cotco\visu_cotco\bin\Debug\visu_cotco.exe.config
+E:\OneDrive - Nortek AS\NortekMed\30-Affaires\COTCO_TCP\visu_cotco\visu_cotco\bin\Debug\visu_cotco.exe
+E:\OneDrive - Nortek AS\NortekMed\30-Affaires\COTCO_TCP\visu_cotco\visu_cotco\bin\Debug\visu_cotco.pdb
+E:\OneDrive - Nortek AS\NortekMed\30-Affaires\COTCO_TCP\visu_cotco\visu_cotco\bin\Debug\FirebirdSql.Data.FirebirdClient.dll
+E:\OneDrive - Nortek AS\NortekMed\30-Affaires\COTCO_TCP\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.csprojAssemblyReference.cache
+E:\OneDrive - Nortek AS\NortekMed\30-Affaires\COTCO_TCP\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.Form1.resources
+E:\OneDrive - Nortek AS\NortekMed\30-Affaires\COTCO_TCP\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.Properties.Resources.resources
+E:\OneDrive - Nortek AS\NortekMed\30-Affaires\COTCO_TCP\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.csproj.GenerateResource.cache
+E:\OneDrive - Nortek AS\NortekMed\30-Affaires\COTCO_TCP\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.exe.licenses
+E:\OneDrive - Nortek AS\NortekMed\30-Affaires\COTCO_TCP\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.csproj.CoreCompileInputs.cache
+E:\OneDrive - Nortek AS\NortekMed\30-Affaires\COTCO_TCP\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.csproj.CopyComplete
+E:\OneDrive - Nortek AS\NortekMed\30-Affaires\COTCO_TCP\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.exe
+E:\OneDrive - Nortek AS\NortekMed\30-Affaires\COTCO_TCP\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.pdb
