@@ -60,3 +60,17 @@ E:\OneDrive - Nortek AS\NortekMed\30-Affaires\COTCO_TCP\visu_cotco\visu_cotco\ob
 E:\OneDrive - Nortek AS\NortekMed\30-Affaires\COTCO_TCP\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.csproj.CopyComplete
 E:\OneDrive - Nortek AS\NortekMed\30-Affaires\COTCO_TCP\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.exe
 E:\OneDrive - Nortek AS\NortekMed\30-Affaires\COTCO_TCP\visu_cotco\visu_cotco\obj\x86\Debug\visu_cotco.pdb
+E:\OneDrive - Nortek AS\NortekMed\20-Projects\xxxx_COTCO-TCP\xxxx_COTCO-TCP_visu\visu_cotco\bin\Debug\visu_cotco.exe.config
+E:\OneDrive - Nortek AS\NortekMed\20-Projects\xxxx_COTCO-TCP\xxxx_COTCO-TCP_visu\visu_cotco\bin\Debug\visu_cotco.exe
+E:\OneDrive - Nortek AS\NortekMed\20-Projects\xxxx_COTCO-TCP\xxxx_COTCO-TCP_visu\visu_cotco\bin\Debug\visu_cotco.pdb
+E:\OneDrive - Nortek AS\NortekMed\20-Projects\xxxx_COTCO-TCP\xxxx_COTCO-TCP_visu\visu_cotco\bin\Debug\FirebirdSql.Data.FirebirdClient.dll
+E:\OneDrive - Nortek AS\NortekMed\20-Projects\xxxx_COTCO-TCP\xxxx_COTCO-TCP_visu\visu_cotco\obj\x86\Debug\visu_cotco.Form1.resources
+E:\OneDrive - Nortek AS\NortekMed\20-Projects\xxxx_COTCO-TCP\xxxx_COTCO-TCP_visu\visu_cotco\obj\x86\Debug\visu_cotco.Properties.Resources.resources
+E:\OneDrive - Nortek AS\NortekMed\20-Projects\xxxx_COTCO-TCP\xxxx_COTCO-TCP_visu\visu_cotco\obj\x86\Debug\visu_cotco.csproj.GenerateResource.cache
+E:\OneDrive - Nortek AS\NortekMed\20-Projects\xxxx_COTCO-TCP\xxxx_COTCO-TCP_visu\visu_cotco\obj\x86\Debug\visu_cotco.exe.licenses
+E:\OneDrive - Nortek AS\NortekMed\20-Projects\xxxx_COTCO-TCP\xxxx_COTCO-TCP_visu\visu_cotco\obj\x86\Debug\visu_cotco.csproj.CoreCompileInputs.cache
+E:\OneDrive - Nortek AS\NortekMed\20-Projects\xxxx_COTCO-TCP\xxxx_COTCO-TCP_visu\visu_cotco\obj\x86\Debug\visu_cotco.csproj.CopyComplete
+E:\OneDrive - Nortek AS\NortekMed\20-Projects\xxxx_COTCO-TCP\xxxx_COTCO-TCP_visu\visu_cotco\obj\x86\Debug\visu_cotco.exe
+E:\OneDrive - Nortek AS\NortekMed\20-Projects\xxxx_COTCO-TCP\xxxx_COTCO-TCP_visu\visu_cotco\obj\x86\Debug\visu_cotco.pdb
+E:\OneDrive - Nortek AS\NortekMed\20-Projects\xxxx_COTCO-TCP\xxxx_COTCO-TCP_visu\visu_cotco\obj\x86\Debug\visu_cotco.csprojAssemblyReference.cache
+E:\OneDrive - Nortek AS\NortekMed\20-Projects\xxxx_COTCO-TCP\xxxx_COTCO-TCP_visu\visu_cotco\bin\Debug\config_visu_cotco.txt

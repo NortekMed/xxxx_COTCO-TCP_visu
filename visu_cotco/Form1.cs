@@ -31,10 +31,12 @@ namespace visu_cotco
         System.IO.Ports.StopBits stopbit_modbus = System.IO.Ports.StopBits.One;
         Modbus modbus1;
         object loc_aenvoyer;
+
+        string log_path = "";
       
          //public static string databaseconnectionstring = "Server=192.168.127.1;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=false;Charser=NONE;Database=d:\\COTCO.FDB";
-         public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=false;Charser=NONE;Database=e:\\COTCO.FDB";
-         public static string databaseconnectionstring_vent = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=true;Charser=NONE;Database=C:\\Users\\cotco\\Documents\\COTCO_VENT.FDB";
+         public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=false;Charser=NONE;Database=D:\\COTCO.FDB";
+         public static string databaseconnectionstring_vent = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=true;Charser=NONE;Database=D:\\COTCO_VENT.FDB";
 
         //public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Pooling=false;Charser=NONE;Database=Cotco_mer-pc:d:\\COTCO.FDB";
         // public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Pooling=false;Charser=NONE;Database= E:\\COTCO.FDB";       
@@ -45,6 +47,16 @@ namespace visu_cotco
         public Form1()
         {
             InitializeComponent();
+
+            string parent_path = new System.IO.DirectoryInfo(System.IO.Directory.GetCurrentDirectory()).FullName;
+            Directory.CreateDirectory(parent_path + "//log");
+            log_path = parent_path + "//log";
+
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            string[] token = assembly.FullName.Split(new char[] { ',' });
+            this.Text = "Visualisation " + token[1];
+
+
             timer1.Interval = 120000;
             timer1.Enabled = false;
             groupBox13.Visible = false;
@@ -129,7 +141,8 @@ namespace visu_cotco
             }
             System.IO.Ports.SerialPort sp1 = new System.IO.Ports.SerialPort(com_modbus, modbus_baudrate, parity_modbus, databit_modbus, stopbit_modbus);
             modbus1 = new Modbus(sp1);
-            modbus1.reponse_modbus1 += new Modbus.reponse_modbus(modbus1_reponse_modbus1);
+            modbus1.reponse_modbus1 += new Modbus.reponse_modbus(TraiteEvent_reponse_modbus1);
+            modbus1.logging_info_evt += new Modbus.logging_info(TraiteEvent_MODBUS_log);
             modbus1.start_prog();
            
 
@@ -175,7 +188,8 @@ namespace visu_cotco
                 label18.BackColor = Color.Red;
                 label19.BackColor = Color.Red;
                 label20.BackColor = Color.Red;
-                richTextBox2.AppendText(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarm Wind\r\n");
+                //LogBox.AppendText(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarm Wind\r\n");
+                log("  Alarm Wind");
             }
             else
             {
@@ -196,7 +210,8 @@ namespace visu_cotco
 
                 label21.BackColor = Color.Red;
                 label22.BackColor = Color.Red;
-                richTextBox2.AppendText(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarm compas\r\n");
+                //LogBox.AppendText(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarm compas\r\n");
+                log("  Alarm compas");
             }
             else
             {
@@ -280,7 +295,8 @@ namespace visu_cotco
             if (alarm)
             {
                 label3.BackColor = Color.Red;
-                richTextBox2.AppendText(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarm SBE_1\r\n");
+                //LogBox.AppendText(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarm SBE_1\r\n");
+                log("  Alarm SBE_1");
                 temp_sbe[0] = 0;
             }
             else
@@ -296,7 +312,8 @@ namespace visu_cotco
             if (alarm)
             {
                 label4.BackColor = Color.Red;
-                richTextBox2.AppendText(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarm SBE_2\r\n");
+                //LogBox.AppendText(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarm SBE_2\r\n");
+                log("  Alarm SBE_2");
             }
             else
             {
@@ -311,7 +328,8 @@ namespace visu_cotco
             if (alarm)
             {
                 label5.BackColor = Color.Red;
-                richTextBox2.AppendText(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarm SBE_3\r\n");
+                //LogBox.AppendText(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarm SBE_3\r\n");
+                log("  Alarm SBE_3");
             }
             else
             {
@@ -326,7 +344,8 @@ namespace visu_cotco
             if (alarm)
             {
                 label6.BackColor = Color.Red;
-                richTextBox2.AppendText(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarm SBE_4\r\n");
+                //LogBox.AppendText(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarm SBE_4\r\n");
+                log("  Alarm SBE_4");
             }
             else
             {
@@ -341,7 +360,8 @@ namespace visu_cotco
             if (alarm)
             {
                 label7.BackColor = Color.Red;
-                richTextBox2.AppendText(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarm SBE_5\r\n");
+                //LogBox.AppendText(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarm SBE_5\r\n");
+                log("  Alarm SBE_5");
             }
             else
             {
@@ -356,7 +376,8 @@ namespace visu_cotco
             if (alarm)
             {
                 label8.BackColor = Color.Red;
-                richTextBox2.AppendText(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarm SBE_6\r\n");
+                //LogBox.AppendText(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarm SBE_6\r\n");
+                log("  Alarm SBE_6");
             }
             else
             {
@@ -381,7 +402,9 @@ namespace visu_cotco
             if (alarm)
             {
                 label16.BackColor = Color.Red;
-                richTextBox2.AppendText(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarm Current\r\n");
+                //LogBox.AppendText(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarm Current\r\n");
+                //log(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarm Current\r\n");
+                log("  Alarm Current");
             }
             else
             {
@@ -418,7 +441,8 @@ namespace visu_cotco
                 label13.BackColor = Color.Red;
                 label14.BackColor = Color.Red;
                 label15.BackColor = Color.Red;
-                richTextBox2.AppendText(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarme Wave\r\n");
+                //LogBox.AppendText(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "  Alarme Wave\r\n");
+                log("  Alarme Wave");
             }
             else
             {
@@ -710,13 +734,6 @@ namespace visu_cotco
                     th.Start();
                     break;
                 case SmallServerEventArgs.kind.startlistening:
-                    /*Console.WriteLine("************************************************");
-                    Console.WriteLine("* GPRS Modem Server - Timed Frame to File      *");
-                    Console.WriteLine("* Listening .....                              *");
-                    Console.WriteLine("************************************************");
-                    Console.WriteLine("*****        " + lieu + "           *******");
-                    Console.WriteLine("*****              " + portgprs + "                  *******");
-                    Console.WriteLine("************************************************");*/
                     break;
 
             }
@@ -726,10 +743,6 @@ namespace visu_cotco
 
         void server_SmallServerModemEvent(object sender, SmallServerModemEventArgs e)
         {
-            //if (e.Kind == SmallServerModemEventArgs.kind.asciimessage && asciilogger!=null )
-            //{
-            //    asciilogger.AddLine(e.Message);
-            //}
             if (e.Kind == SmallServerModemEventArgs.kind.datamessage)
             {
 
@@ -740,13 +753,6 @@ namespace visu_cotco
                     //Console.WriteLine("Got messsage, write data !!. :");
                     try
                     {
-
-                       /* if (writer != null)
-                        {
-                            writer.WriteLine(ASCIIEncoding.ASCII.GetString(e.Message));
-                        }*/
-
-                        //System.Console.WriteLine(ASCIIEncoding.ASCII.GetString(e.Message));
                         // try parsing !
                         processingmessagethread.addMessage(e.Message);
                     }
@@ -769,11 +775,11 @@ namespace visu_cotco
         FbConnection myConnection;
      
 
-        void modbus1_reponse_modbus1(DateTime heure_modbus)
+        void TraiteEvent_reponse_modbus1(DateTime heure_modbus)
         {
             if (this.InvokeRequired)
             {
-                this.BeginInvoke(new Modbus.reponse_modbus(modbus1_reponse_modbus1), new object[] { heure_modbus });
+                this.BeginInvoke(new Modbus.reponse_modbus(TraiteEvent_reponse_modbus1), new object[] { heure_modbus });
                 return;
             }
             label2.Text = "Date : " + heure_modbus.ToString("dd/MM/yy HH:mm:ss");
@@ -904,7 +910,10 @@ namespace visu_cotco
                
 
             }
-            catch { label1.BackColor = Color.Red; }
+            catch {
+                label1.BackColor = Color.Red;
+                log("Problème de base données sur SBE1.");
+            }
 
             DataSet ds2 = new DataSet();
             FbDataAdapter dataadapter2 = new FirebirdSql.Data.FirebirdClient.FbDataAdapter("SELECT TIME_LOG,TEMP  FROM SBE_2 a " + timestampsrequest + " order by a.TIME_LOG", databaseconnectionstring);
@@ -946,7 +955,10 @@ namespace visu_cotco
                 label37.Text = "Date : " + hmax.ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", max) + " °C";
                 label43.Text = "Date : " + hmax.ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", temp_moy) + " °C";
             }
-            catch { label1.BackColor = Color.Red; }
+            catch {
+                label1.BackColor = Color.Red;
+                log("Problème de base données sur SBE2.");
+            }
 
             DataSet ds3 = new DataSet();
             FbDataAdapter dataadapter3 = new FirebirdSql.Data.FirebirdClient.FbDataAdapter("SELECT TIME_LOG,TEMP  FROM SBE_3 a " + timestampsrequest + " order by a.TIME_LOG", databaseconnectionstring);
@@ -988,7 +1000,10 @@ namespace visu_cotco
                 label36.Text = "Date : " + hmax.ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", max) + " °C";
                 label42.Text = "Date : " + hmax.ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", temp_moy) + " °C";
             }
-            catch { label1.BackColor = Color.Red; }
+            catch {
+                label1.BackColor = Color.Red;
+                log("Problème de base données sur SBE3.");
+            }
 
             DataSet ds4 = new DataSet();
             FbDataAdapter dataadapter4 = new FirebirdSql.Data.FirebirdClient.FbDataAdapter("SELECT TIME_LOG,TEMP  FROM SBE_4 a " + timestampsrequest + " order by a.TIME_LOG", databaseconnectionstring);
@@ -1030,7 +1045,10 @@ namespace visu_cotco
                 label35.Text = "Date : " + hmax.ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", max) + " °C";
                 label41.Text = "Date : " + hmax.ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", temp_moy) + " °C";
             }
-            catch { label1.BackColor = Color.Red; }
+            catch {
+                label1.BackColor = Color.Red;
+                log("Problème de base données sur SBE4.");
+            }
 
             DataSet ds5 = new DataSet();
             FbDataAdapter dataadapter5 = new FirebirdSql.Data.FirebirdClient.FbDataAdapter("SELECT TIME_LOG,TEMP  FROM SBE_5 a " + timestampsrequest + " order by a.TIME_LOG", databaseconnectionstring);
@@ -1072,7 +1090,10 @@ namespace visu_cotco
                 label33.Text = "Date : " + hmax.ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", max) + " °C";
                 label39.Text = "Date : " + hmax.ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", temp_moy) + " °C";
             }
-            catch { label1.BackColor = Color.Red; }
+            catch {
+                label1.BackColor = Color.Red;
+                log("Problème de base données sur SBE5.");
+            }
 
             DataSet ds6 = new DataSet();
             FbDataAdapter dataadapter6 = new FirebirdSql.Data.FirebirdClient.FbDataAdapter("SELECT TIME_LOG,TEMP  FROM SBE_6 a " + timestampsrequest + " order by a.TIME_LOG", databaseconnectionstring);
@@ -1114,7 +1135,10 @@ namespace visu_cotco
                 label32.Text = "Date : " + hmax.ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", max) + " °C";
                 label38.Text = "Date : " + hmax.ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", temp_moy) + " °C";
             }
-            catch { label1.BackColor = Color.Red; }
+            catch {
+                label1.BackColor = Color.Red;
+                log("Problème de base données sur SBE6.");
+            }
 
             groupBox14.Text = "TEMPERATURE MINI du " + dateTimePicker1.Value.ToString("dd/MM/yy HH:mm") + " au " + dateTimePicker2.Value.ToString("dd/MM/yy HH:mm");
             groupBox21.Text = "TEMPERATURE MAXI du " + dateTimePicker1.Value.ToString("dd/MM/yy HH:mm") + " au " + dateTimePicker2.Value.ToString("dd/MM/yy HH:mm");
@@ -1160,7 +1184,10 @@ namespace visu_cotco
                 fastLine12.YValues.DataMember = "MEANDIR";
                 fastLine12.DataSource = ds1.Tables[0];
             }
-            catch { label1.BackColor = Color.Red; }
+            catch {
+                label1.BackColor = Color.Red;
+                log("Problème de lecture de la base de données AWAC-WAVE.");
+            }
 
 
         }
@@ -1189,7 +1216,10 @@ namespace visu_cotco
                 fastLine14.YValues.DataMember = "DIR";
                 fastLine14.DataSource = ds1.Tables[0];
             }
-            catch { label1.BackColor = Color.Red; }
+            catch {
+                label1.BackColor = Color.Red;
+                log("Problème de lecture de la base de données AWAC_COURANT.");
+            }
 
         }
 
@@ -1221,7 +1251,10 @@ namespace visu_cotco
                 fastLine17.YValues.DataMember = "DIRMOY";
                 fastLine17.DataSource = ds1.Tables[0];
             }
-            catch { label1.BackColor = Color.Red; }
+            catch {
+                label1.BackColor = Color.Red;
+                log("Problème de lecture de la base de données VENT.");
+            }
 
         }
 
@@ -1361,7 +1394,44 @@ namespace visu_cotco
            // threadprocess.Abort();
            // th.Abort();
         }
-        
+
+        private void log(string str)
+        {
+            string s_log = DateTime.Now.ToString("HH:mm:ss") + ":\t" + str + "\n";
+            LogBox.AppendText(s_log);
+            LogBox.ScrollToCaret();
+
+            log_file("log", s_log);
+        }
+
+        private void log_file(string name, string s_log)
+        {
+            DateTime date = DateTime.Now;
+            //string parent_path = new System.IO.DirectoryInfo(System.IO.Directory.GetCurrentDirectory()).FullName;
+            string logfile = name + "-" + date.ToString("yy-MM-dd") + ".txt";
+            if (File.Exists(log_path + "//" + logfile) == false)
+            {
+                using (StreamWriter swritter = File.CreateText(log_path + "//" + logfile))
+                {
+                    swritter.Close();
+                }
+            }
+
+            StreamWriter f = File.AppendText(log_path + "//" + logfile);
+            f.Write(s_log);
+            f.Close();
+
+        }
+
+        void TraiteEvent_MODBUS_log(string msg)
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new Modbus.logging_info(log), new object[] { msg });
+                return;
+            }
+            log(msg);
+        }
 
 
     }
@@ -1386,9 +1456,6 @@ namespace visu_cotco
 
         public void Start()
         {
-
-
-
             while (true)
             {
                 bool finished = false;
@@ -1409,15 +1476,12 @@ namespace visu_cotco
                     }
                     if (message != null)
                     {
-
-
                         BoueeDirectionnelle waves = null;
                         wind wind = null;
 
                         try
                         {
                             waves = BoueeDirectionnelle.ParseTrame(message);
-                            //System.Console.WriteLine("Wind Message received !!");
                             if (affich_param_SBE != null ) affich_param_SBE(waves.Timestamplog,waves.Date_sbe,waves.Temp_sbe,/*waves.Date_compas,waves.Compas,waves.Date_wind,waves.Ws,waves.Wd,waves.Wm,*/waves.Date_courant,waves.Spd_cou,waves.Dir_cou,waves.Date_houle,waves.Hm0,waves.Tp,waves.Tm02,waves.Hmax,waves.Meandir,waves.Dirtp,waves.Date_pression,waves.Pression);
                         }
                         catch { }
@@ -1427,7 +1491,6 @@ namespace visu_cotco
                             try
                             {
                                 wind = wind.ParseTrame(message);
-                                //System.Console.WriteLine("Wind Message received !!");
                                 if (affich_param_vent != null) affich_param_vent(wind.Date_compas,wind.Compas,wind.Date_wind,wind.Ws,wind.Wd,wind.Wm);
                             }
                             catch { }

@@ -9,7 +9,10 @@ namespace visu_cotco
 {
     class Modbus
     {
-         SerialPort serial1 ;
+        public delegate void logging_info(string msg);
+        public event logging_info logging_info_evt;
+
+        SerialPort serial1 ;
 
          object loc_aenvoyer;
          private byte[] _messageReceived = new byte[8];
@@ -32,8 +35,11 @@ namespace visu_cotco
                 serial1.ReadBufferSize = 2048;
                 serial1.DataReceived += new SerialDataReceivedEventHandler(serial1_DataReceived);
                 serial1.Open();
+                if (logging_info_evt != null) logging_info_evt("Port série Modbus ouvert.");
             }
-            catch { }
+            catch {
+                if (logging_info_evt != null) logging_info_evt("Problème démarrage Modbus.");
+            }
            
              
          
@@ -47,6 +53,7 @@ namespace visu_cotco
             try
             {
                 serial1.Close();
+                if (logging_info_evt != null) logging_info_evt("Fermeture port série Modbus.");
             }
             catch { }
 
@@ -113,6 +120,7 @@ namespace visu_cotco
                      }
                      else
                      {
+                        if ( logging_info_evt!=null) logging_info_evt("Modbus, CRC erreur.");
                          // on vide le buffer
                          if (serial1.BytesToRead > 0)
                          {
@@ -123,8 +131,9 @@ namespace visu_cotco
                  }
                  else
                  {
-                     // on vide le buffer
-                     if (serial1.BytesToRead > 0)
+                    if (logging_info_evt != null) logging_info_evt("Modbus, adresse erreur.");
+                    // on vide le buffer
+                    if (serial1.BytesToRead > 0)
                      {
                          byte[] buf_1 = new byte[serial1.BytesToRead];
                          serial1.Read(buf_1, 0, serial1.BytesToRead);

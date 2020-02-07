@@ -147,7 +147,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.LogBox = new System.Windows.Forms.RichTextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -205,7 +205,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 53);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1350, 626);
+            this.tabControl1.Size = new System.Drawing.Size(1350, 605);
             this.tabControl1.TabIndex = 1;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -667,7 +667,7 @@
             this.tChart1.Legend.Alignment = Steema.TeeChart.LegendAlignments.Top;
             this.tChart1.Legend.CheckBoxes = true;
             this.tChart1.Legend.LegendStyle = Steema.TeeChart.LegendStyles.Series;
-            this.tChart1.Location = new System.Drawing.Point(6, 16);
+            this.tChart1.Location = new System.Drawing.Point(0, 0);
             this.tChart1.Name = "tChart1";
             this.tChart1.Series.Add(this.fastLine1);
             this.tChart1.Series.Add(this.fastLine2);
@@ -815,7 +815,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1342, 600);
+            this.tabPage3.Size = new System.Drawing.Size(1342, 579);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Wave history";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -870,7 +870,7 @@
             // 
             this.tChart2.Legend.Alignment = Steema.TeeChart.LegendAlignments.Top;
             this.tChart2.Legend.CheckBoxes = true;
-            this.tChart2.Location = new System.Drawing.Point(6, 15);
+            this.tChart2.Location = new System.Drawing.Point(0, 0);
             this.tChart2.Name = "tChart2";
             // 
             // 
@@ -1122,7 +1122,7 @@
             // 
             this.tChart3.Legend.Alignment = Steema.TeeChart.LegendAlignments.Top;
             this.tChart3.Legend.CheckBoxes = true;
-            this.tChart3.Location = new System.Drawing.Point(6, 15);
+            this.tChart3.Location = new System.Drawing.Point(0, 0);
             this.tChart3.Name = "tChart3";
             this.tChart3.Series.Add(this.fastLine13);
             this.tChart3.Series.Add(this.fastLine14);
@@ -1247,7 +1247,7 @@
             // 
             this.tChart4.Legend.Alignment = Steema.TeeChart.LegendAlignments.Top;
             this.tChart4.Legend.CheckBoxes = true;
-            this.tChart4.Location = new System.Drawing.Point(6, 16);
+            this.tChart4.Location = new System.Drawing.Point(0, 0);
             this.tChart4.Name = "tChart4";
             this.tChart4.Series.Add(this.fastLine15);
             this.tChart4.Series.Add(this.fastLine16);
@@ -1875,14 +1875,15 @@
             this.dateTimePicker1.Size = new System.Drawing.Size(127, 20);
             this.dateTimePicker1.TabIndex = 0;
             // 
-            // richTextBox2
+            // LogBox
             // 
-            this.richTextBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox2.Location = new System.Drawing.Point(8, 681);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(1346, 57);
-            this.richTextBox2.TabIndex = 3;
-            this.richTextBox2.Text = "";
+            this.LogBox.BackColor = System.Drawing.SystemColors.Control;
+            this.LogBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LogBox.Location = new System.Drawing.Point(8, 658);
+            this.LogBox.Name = "LogBox";
+            this.LogBox.Size = new System.Drawing.Size(1346, 80);
+            this.LogBox.TabIndex = 3;
+            this.LogBox.Text = "";
             // 
             // timer1
             // 
@@ -1894,7 +1895,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1370, 750);
-            this.Controls.Add(this.richTextBox2);
+            this.Controls.Add(this.LogBox);
             this.Controls.Add(this.groupBox13);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
@@ -2051,7 +2052,7 @@
         private Steema.TeeChart.Styles.FastLine fastLine15;
         private Steema.TeeChart.Styles.FastLine fastLine16;
         private Steema.TeeChart.Styles.FastLine fastLine17;
-        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.RichTextBox LogBox;
         private Steema.TeeChart.Tools.MarksTip marksTip1;
         private Steema.TeeChart.Tools.MarksTip marksTip2;
         private Steema.TeeChart.Tools.MarksTip marksTip3;
