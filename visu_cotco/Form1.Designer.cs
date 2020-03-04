@@ -202,10 +202,10 @@
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage7);
-            this.tabControl1.Location = new System.Drawing.Point(12, 53);
+            this.tabControl1.Location = new System.Drawing.Point(8, 53);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1350, 605);
+            this.tabControl1.Size = new System.Drawing.Size(1246, 605);
             this.tabControl1.TabIndex = 1;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -220,7 +220,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1342, 600);
+            this.tabPage1.Size = new System.Drawing.Size(1342, 579);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "RealTime";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -236,7 +236,7 @@
             this.groupBox12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox12.Location = new System.Drawing.Point(573, 17);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(763, 149);
+            this.groupBox12.Size = new System.Drawing.Size(671, 149);
             this.groupBox12.TabIndex = 6;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "WIND";
@@ -265,7 +265,7 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(601, 45);
+            this.label20.Location = new System.Drawing.Point(272, 62);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(143, 20);
             this.label20.TabIndex = 5;
@@ -275,7 +275,7 @@
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(455, 45);
+            this.label19.Location = new System.Drawing.Point(271, 42);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(123, 20);
             this.label19.TabIndex = 4;
@@ -285,7 +285,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(268, 45);
+            this.label18.Location = new System.Drawing.Point(268, 22);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(147, 20);
             this.label18.TabIndex = 3;
@@ -295,7 +295,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(36, 45);
+            this.label17.Location = new System.Drawing.Point(36, 22);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(188, 20);
             this.label17.TabIndex = 2;
@@ -308,7 +308,7 @@
             this.groupBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox11.Location = new System.Drawing.Point(870, 172);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(466, 398);
+            this.groupBox11.Size = new System.Drawing.Size(374, 398);
             this.groupBox11.TabIndex = 5;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "CURRENT";
@@ -318,7 +318,7 @@
             this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox1.Location = new System.Drawing.Point(6, 50);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(450, 342);
+            this.richTextBox1.Size = new System.Drawing.Size(362, 342);
             this.richTextBox1.TabIndex = 3;
             this.richTextBox1.Text = "";
             // 
@@ -326,7 +326,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(138, 24);
+            this.label16.Location = new System.Drawing.Point(36, 22);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(188, 20);
             this.label16.TabIndex = 2;
@@ -609,7 +609,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1342, 600);
+            this.tabPage2.Size = new System.Drawing.Size(1342, 579);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Temperature history";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -669,13 +669,17 @@
             this.tChart1.Legend.LegendStyle = Steema.TeeChart.LegendStyles.Series;
             this.tChart1.Location = new System.Drawing.Point(0, 0);
             this.tChart1.Name = "tChart1";
+            // 
+            // 
+            // 
+            this.tChart1.Page.AutoScale = true;
             this.tChart1.Series.Add(this.fastLine1);
             this.tChart1.Series.Add(this.fastLine2);
             this.tChart1.Series.Add(this.fastLine3);
             this.tChart1.Series.Add(this.fastLine4);
             this.tChart1.Series.Add(this.fastLine5);
             this.tChart1.Series.Add(this.fastLine6);
-            this.tChart1.Size = new System.Drawing.Size(1330, 576);
+            this.tChart1.Size = new System.Drawing.Size(1249, 576);
             this.tChart1.TabIndex = 0;
             this.tChart1.Tools.Add(this.marksTip1);
             // 
@@ -815,7 +819,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1342, 579);
+            this.tabPage3.Size = new System.Drawing.Size(1238, 579);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Wave history";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -882,7 +886,7 @@
             this.tChart2.Series.Add(this.fastLine10);
             this.tChart2.Series.Add(this.fastLine11);
             this.tChart2.Series.Add(this.fastLine12);
-            this.tChart2.Size = new System.Drawing.Size(1330, 577);
+            this.tChart2.Size = new System.Drawing.Size(1236, 577);
             this.tChart2.TabIndex = 0;
             this.tChart2.Tools.Add(this.marksTip2);
             // 
@@ -1056,7 +1060,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1342, 600);
+            this.tabPage4.Size = new System.Drawing.Size(1238, 579);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Current Hystory";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1126,7 +1130,7 @@
             this.tChart3.Name = "tChart3";
             this.tChart3.Series.Add(this.fastLine13);
             this.tChart3.Series.Add(this.fastLine14);
-            this.tChart3.Size = new System.Drawing.Size(1330, 577);
+            this.tChart3.Size = new System.Drawing.Size(1242, 577);
             this.tChart3.TabIndex = 0;
             this.tChart3.Tools.Add(this.marksTip3);
             // 
@@ -1185,7 +1189,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(1342, 600);
+            this.tabPage5.Size = new System.Drawing.Size(1238, 579);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Wind Hystory";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1252,7 +1256,7 @@
             this.tChart4.Series.Add(this.fastLine15);
             this.tChart4.Series.Add(this.fastLine16);
             this.tChart4.Series.Add(this.fastLine17);
-            this.tChart4.Size = new System.Drawing.Size(1330, 576);
+            this.tChart4.Size = new System.Drawing.Size(1242, 576);
             this.tChart4.TabIndex = 0;
             this.tChart4.Tools.Add(this.marksTip4);
             // 
@@ -1331,7 +1335,7 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(1342, 600);
+            this.tabPage6.Size = new System.Drawing.Size(1238, 579);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "min / max";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -1345,7 +1349,7 @@
             this.groupBox21.Controls.Add(this.groupBox26);
             this.groupBox21.Controls.Add(this.groupBox27);
             this.groupBox21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox21.Location = new System.Drawing.Point(581, 40);
+            this.groupBox21.Location = new System.Drawing.Point(692, 40);
             this.groupBox21.Name = "groupBox21";
             this.groupBox21.Size = new System.Drawing.Size(531, 482);
             this.groupBox21.TabIndex = 5;
@@ -1487,7 +1491,7 @@
             this.groupBox14.Controls.Add(this.groupBox19);
             this.groupBox14.Controls.Add(this.groupBox20);
             this.groupBox14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox14.Location = new System.Drawing.Point(21, 40);
+            this.groupBox14.Location = new System.Drawing.Point(17, 40);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(531, 482);
             this.groupBox14.TabIndex = 4;
@@ -1626,7 +1630,7 @@
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(1342, 600);
+            this.tabPage7.Size = new System.Drawing.Size(1342, 579);
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "average";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -1894,7 +1898,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1370, 750);
+            this.ClientSize = new System.Drawing.Size(1264, 750);
             this.Controls.Add(this.LogBox);
             this.Controls.Add(this.groupBox13);
             this.Controls.Add(this.tabControl1);
