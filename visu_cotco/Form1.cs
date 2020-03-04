@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -35,8 +35,8 @@ namespace visu_cotco
         string log_path = "";
       
          //public static string databaseconnectionstring = "Server=192.168.127.1;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=false;Charser=NONE;Database=d:\\COTCO.FDB";
-         public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=false;Charser=NONE;Database=D:\\COTCO.FDB";
-         public static string databaseconnectionstring_vent = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=true;Charser=NONE;Database=D:\\COTCO_VENT.FDB";
+         public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=false;Charser=NONE;Database=D:\\DATABASE\\COTCO.FDB";
+         //public static string databaseconnectionstring_vent = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=true;Charser=NONE;Database=D:\\COTCO_VENT.FDB";
 
         //public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Pooling=false;Charser=NONE;Database=Cotco_mer-pc:d:\\COTCO.FDB";
         // public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Pooling=false;Charser=NONE;Database= E:\\COTCO.FDB";       
@@ -149,7 +149,7 @@ namespace visu_cotco
             loc_aenvoyer = new object();
 
             processingmessagethread = new ProcessingMessageThread();
-            processingmessagethread.affich_param_SBE += new ProcessingMessageThread.mesure_SBE(processingmessagethread_affich_param_SBE);
+            processingmessagethread.affich_param += new ProcessingMessageThread.mesure_SBE(processingmessagethread_affich_param);
             processingmessagethread.affich_param_vent += new ProcessingMessageThread.mesure_vent(processingmessagethread_affich_param_vent);
             System.Threading.Thread threadprocess = new System.Threading.Thread(new System.Threading.ThreadStart(processingmessagethread.Start));
             threadprocess.IsBackground = true;
@@ -175,7 +175,7 @@ namespace visu_cotco
             //vent
             bool alarm = false;
             DateTime test = date_wind.AddMinutes(50);
-            if (test < DateTime.Now)
+            if (test < DateTime.UtcNow)
             { alarm = true; }
             else { alarm = false; }
             label17.Text = "Date : " + date_wind.ToString("dd/MM/yy HH:mm:ss");
@@ -200,7 +200,7 @@ namespace visu_cotco
             }
             //compas
             test = date_compas.AddMinutes(50);
-            if (test < DateTime.Now)
+            if (test < DateTime.UtcNow)
             { alarm = true; }
             else { alarm = false; }
             label21.Text = "Date : " + date_compas.ToString("dd/MM/yy HH:mm:ss");
@@ -273,11 +273,11 @@ namespace visu_cotco
 
 
         ///affichage toutes les minutes
-        void processingmessagethread_affich_param_SBE(DateTime timestamplog, DateTime[] date_sbe, float[] temp_sbe, /*DateTime date_compas, float compas, DateTime date_wind, float ws, float wd, float wm,*/ DateTime[] date_courant, float[] spd_cou, float[] dir_cou, DateTime date_houle, float hm0, float tp, float tm02, float hmax, float meandir, float dirtp, DateTime date_pression, float pression)
+        void processingmessagethread_affich_param(DateTime timestamplog, DateTime[] date_sbe, float[] temp_sbe, /*DateTime date_compas, float compas, DateTime date_wind, float ws, float wd, float wm,*/ DateTime[] date_courant, float[] spd_cou, float[] dir_cou, DateTime date_houle, float hm0, float tp, float tm02, float hmax, float meandir, float dirtp, DateTime date_pression, float pression)
         {
             if (this.InvokeRequired)
             {
-                this.BeginInvoke(new ProcessingMessageThread.mesure_SBE(processingmessagethread_affich_param_SBE), new object[] { timestamplog, date_sbe, temp_sbe,/* date_compas, compas, date_wind, ws, wd, wm,*/ date_courant, spd_cou, dir_cou, date_houle, hm0, tp, tm02, hmax, meandir, dirtp, date_pression,pression });
+                this.BeginInvoke(new ProcessingMessageThread.mesure_SBE(processingmessagethread_affich_param), new object[] { timestamplog, date_sbe, temp_sbe,/* date_compas, compas, date_wind, ws, wd, wm,*/ date_courant, spd_cou, dir_cou, date_houle, hm0, tp, tm02, hmax, meandir, dirtp, date_pression,pression });
                 return;
             }
 
@@ -290,7 +290,7 @@ namespace visu_cotco
             bool alarm = false;
             //sbe_1
             DateTime test = date_sbe[0].AddMinutes(50);
-            if (test < DateTime.Now) alarm = true;
+            if (test < DateTime.UtcNow) alarm = true;
             label3.Text = "Date : " + date_sbe[0].ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", temp_sbe[0]) + " °C";
             if (alarm)
             {
@@ -305,7 +305,7 @@ namespace visu_cotco
             }
             //sbe_2
             test = date_sbe[1].AddMinutes(50);
-            if (test < DateTime.Now)
+            if (test < DateTime.UtcNow)
             { alarm = true; }
             else { alarm = false; }
             label4.Text = "Date : " + date_sbe[1].ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", temp_sbe[1]) + " °C";
@@ -321,7 +321,7 @@ namespace visu_cotco
             }
             //sbe3
             test = date_sbe[2].AddMinutes(50);
-            if (test < DateTime.Now)
+            if (test < DateTime.UtcNow)
             { alarm = true; }
             else { alarm = false; }
             label5.Text = "Date : " + date_sbe[2].ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", temp_sbe[2]) + " °C";
@@ -337,7 +337,7 @@ namespace visu_cotco
             }
             //sbe4
             test = date_sbe[3].AddMinutes(50);
-            if (test < DateTime.Now)
+            if (test < DateTime.UtcNow)
             { alarm = true; }
             else { alarm = false; }
             label6.Text = "Date : " + date_sbe[3].ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", temp_sbe[3]) + " °C";
@@ -353,7 +353,7 @@ namespace visu_cotco
             }
             //sbe5
             test = date_sbe[4].AddMinutes(50);
-            if (test < DateTime.Now)
+            if (test < DateTime.UtcNow)
             { alarm = true; }
             else { alarm = false; }
             label7.Text = "Date : " + date_sbe[4].ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", temp_sbe[4]) + " °C";
@@ -369,7 +369,7 @@ namespace visu_cotco
             }
             //sbe6
             test = date_sbe[5].AddMinutes(50);
-            if (test < DateTime.Now)
+            if (test < DateTime.UtcNow)
             { alarm = true; }
             else { alarm = false; }
             label8.Text = "Date : " + date_sbe[5].ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", temp_sbe[5]) + " °C";
@@ -387,7 +387,7 @@ namespace visu_cotco
             //courant
             richTextBox1.Clear();
             test = date_courant[0].AddMinutes(50);
-            if (test < DateTime.Now)
+            if (test < DateTime.UtcNow)
             { alarm = true; }
             else { alarm = false; }
 
@@ -414,7 +414,7 @@ namespace visu_cotco
             //houle
 
             test = date_houle.AddMinutes(100);
-            if (test < DateTime.Now)
+            if (test < DateTime.UtcNow)
             { alarm = true; }
             else { alarm = false; }
           
@@ -855,6 +855,9 @@ namespace visu_cotco
 
 
                     }
+
+                    //tabControl1.Refresh();
+                    tChart1.Refresh();
                 }
             }
         }
@@ -954,6 +957,8 @@ namespace visu_cotco
                 label31.Text = "Date : " + hmin.ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", min) + " °C";
                 label37.Text = "Date : " + hmax.ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", max) + " °C";
                 label43.Text = "Date : " + hmax.ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", temp_moy) + " °C";
+
+                fastLine2.RefreshSeries();
             }
             catch {
                 label1.BackColor = Color.Red;
@@ -1233,7 +1238,8 @@ namespace visu_cotco
            
 
             DataSet ds1 = new DataSet();
-            FbDataAdapter dataadapter1 = new FirebirdSql.Data.FirebirdClient.FbDataAdapter("SELECT TIME_REC,VITMOY,DIRMOY,VITMAX  FROM VENT a " + timestampsrequest + " order by a.TIME_REC", databaseconnectionstring_vent);
+            FbDataAdapter dataadapter1 = new FirebirdSql.Data.FirebirdClient.FbDataAdapter("SELECT TIME_REC,VITMOY,DIRMOY,VITMAX  FROM VENT a " + timestampsrequest + " order by a.TIME_REC", databaseconnectionstring);
+            //FbDataAdapter dataadapter1 = new FirebirdSql.Data.FirebirdClient.FbDataAdapter("SELECT TIME_REC,VITMOY,DIRMOY,VITMAX  FROM VENT a " + timestampsrequest + " order by a.TIME_REC", databaseconnectionstring_vent);
             try
             {
                 label1.BackColor = Color.Transparent;
@@ -1442,7 +1448,7 @@ namespace visu_cotco
         System.Threading.AutoResetEvent newmessagesignal;
         System.Collections.Generic.Queue<byte[]> stack;
         public delegate void mesure_SBE (DateTime timestamplog, DateTime[] date_sbe, float[] temp_sbe,/* DateTime date_compas, float compas, DateTime date_wind, float ws, float wd, float wm,*/ DateTime[] date_courant, float [] spd_cou, float [] dir_cou, DateTime date_houle,  float hm0, float tp,float tm02,float hmax,float meandir,float dirtp, DateTime date_pression, float pression);
-        public event mesure_SBE affich_param_SBE;
+        public event mesure_SBE affich_param;
         public delegate void mesure_vent( DateTime date_compas, float compas, DateTime date_wind, float ws, float wd, float wm);
         public event mesure_vent affich_param_vent;
         public ProcessingMessageThread()
@@ -1476,17 +1482,18 @@ namespace visu_cotco
                     }
                     if (message != null)
                     {
-                        BoueeDirectionnelle waves = null;
+                        Trame_COTCO frame = null;
                         wind wind = null;
 
                         try
                         {
-                            waves = BoueeDirectionnelle.ParseTrame(message);
-                            if (affich_param_SBE != null ) affich_param_SBE(waves.Timestamplog,waves.Date_sbe,waves.Temp_sbe,/*waves.Date_compas,waves.Compas,waves.Date_wind,waves.Ws,waves.Wd,waves.Wm,*/waves.Date_courant,waves.Spd_cou,waves.Dir_cou,waves.Date_houle,waves.Hm0,waves.Tp,waves.Tm02,waves.Hmax,waves.Meandir,waves.Dirtp,waves.Date_pression,waves.Pression);
+                            frame = Trame_COTCO.ParseTrame(message);
+                            if (affich_param != null ) affich_param(frame.Timestamplog, frame.Date_sbe, frame.Temp_sbe,/*waves.Date_compas,waves.Compas,waves.Date_wind,waves.Ws,waves.Wd,waves.Wm,*/
+                                frame.Date_courant, frame.Spd_cou, frame.Dir_cou, frame.Date_houle, frame.Hm0, frame.Tp, frame.Tm02, frame.Hmax, frame.Meandir, frame.Dirtp, frame.Date_pression, frame.Pression);
                         }
                         catch { }
 
-                        if (waves == null)
+                        if (frame == null)
                         {
                             try
                             {
