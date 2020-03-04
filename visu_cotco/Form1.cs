@@ -35,14 +35,16 @@ namespace visu_cotco
         string log_path = "";
       
          //public static string databaseconnectionstring = "Server=192.168.127.1;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=false;Charser=NONE;Database=d:\\COTCO.FDB";
-         public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=false;Charser=NONE;Database=D:\\DATABASE\\COTCO.FDB";
-         //public static string databaseconnectionstring_vent = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=true;Charser=NONE;Database=D:\\COTCO_VENT.FDB";
+        public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=false;Charser=NONE;Database=D:\\DATABASE\\COTCO_VISU.FDB";
+        FbConnection databaseconnnection;
+        object lock_bdd;
+        //public static string databaseconnectionstring_vent = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=true;Charser=NONE;Database=D:\\COTCO_VENT.FDB";
 
         //public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Pooling=false;Charser=NONE;Database=Cotco_mer-pc:d:\\COTCO.FDB";
         // public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Pooling=false;Charser=NONE;Database= E:\\COTCO.FDB";       
         //public static string databaseconnectionstring = "Server=192.168.1.197;User=SYSDBA;Password=masterkey;Pooling=false;Port=3050;Dialect=3;Charser=NONE;Database= d:\\COTCO.FDB";
         // public static string databaseconnectionstring_vent = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=false;Charser=NONE;Database=C:\\Users\\thierryS\\Documents\\COTCO_VENT.FDB";
-       //  public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Pooling=false;Charser=NONE;Database= C:\\Users\\thierryS\\Documents\\COTCO.FDB";
+        //  public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Pooling=false;Charser=NONE;Database= C:\\Users\\thierryS\\Documents\\COTCO.FDB";
 
         public Form1()
         {
@@ -55,6 +57,12 @@ namespace visu_cotco
             System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
             string[] token = assembly.FullName.Split(new char[] { ',' });
             this.Text = "Visualisation " + token[1];
+
+
+            databaseconnnection = new FbConnection(databaseconnectionstring);
+            OpenDataBase();
+            lock_bdd = new object();
+
 
 
             timer1.Interval = 120000;
@@ -151,6 +159,7 @@ namespace visu_cotco
             processingmessagethread = new ProcessingMessageThread();
             processingmessagethread.affich_param += new ProcessingMessageThread.mesure_SBE(processingmessagethread_affich_param);
             processingmessagethread.affich_param_vent += new ProcessingMessageThread.mesure_vent(processingmessagethread_affich_param_vent);
+            processingmessagethread.databaseconnectionstring = databaseconnectionstring;
             System.Threading.Thread threadprocess = new System.Threading.Thread(new System.Threading.ThreadStart(processingmessagethread.Start));
             threadprocess.IsBackground = true;
             threadprocess.Start();
@@ -172,10 +181,20 @@ namespace visu_cotco
                 return;
             }
 
+            int y_now = DateTime.Now.Year;
+
+            if (date_wind.Year >= y_now - 10)
+            {
+                lock (lock_bdd)
+                {
+                    ecriture_bdd_wind("VENT", date_wind, ws, wd, wm, compas);
+                }
+            }
+
             //vent
             bool alarm = false;
             DateTime test = date_wind.AddMinutes(50);
-            if (test < DateTime.UtcNow)
+            if (test < DateTime.Now)
             { alarm = true; }
             else { alarm = false; }
             label17.Text = "Date : " + date_wind.ToString("dd/MM/yy HH:mm:ss");
@@ -200,7 +219,7 @@ namespace visu_cotco
             }
             //compas
             test = date_compas.AddMinutes(50);
-            if (test < DateTime.UtcNow)
+            if (test < DateTime.Now)
             { alarm = true; }
             else { alarm = false; }
             label21.Text = "Date : " + date_compas.ToString("dd/MM/yy HH:mm:ss");
@@ -269,28 +288,391 @@ namespace visu_cotco
             }
         }
 
-     
+        void ecriture_bdd_sbe(string name_table, DateTime heure_mesure_SBE, float temprerature, int num_sample)
+        {
+            try
+            {
+                string name_table1 = name_table;
+
+
+                string DbRequest = "SELECT a.NUM_SAMPLE";
+                //string DbRequest = "SELECT a.TIME_LOG, a.NUM_SAMPLE, a.TEMP";
+                DbRequest += " FROM " + name_table1 + " a order by a.NUM_SAMPLE desc";
+
+                DataSet ds = new DataSet();
+                FbDataAdapter dataadapter = new FirebirdSql.Data.FirebirdClient.FbDataAdapter(DbRequest, databaseconnectionstring);
+                dataadapter.Fill(ds);
+                DataTable myDataTable = ds.Tables[0];
+
+                List<int> list_num_sample = new List<int>();
+                foreach (DataRow dRow in myDataTable.Rows)
+                {
+                    list_num_sample.Add(int.Parse(dRow["NUM_SAMPLE"].ToString()));
+                }
+
+                int nxt_num_sample = 1;
+                if (list_num_sample.Count != 0)
+                    nxt_num_sample = list_num_sample.ElementAt(0) + 1;
+
+
+                FbTransaction myTransaction = databaseconnnection.BeginTransaction();
+
+                FbCommand myCommand = new FbCommand();
+
+                myCommand.CommandText =
+                "INSERT INTO " + name_table1 + " (NUM_SAMPLE, TIME_LOG, TEMP) VALUES (@NUM_SAMPLE, @TIME_LOG, @TEMP)";
+                myCommand.Connection = databaseconnnection;
+                myCommand.Transaction = myTransaction;
+
+                myCommand.Parameters.Add("@NUM_SAMPLE", FbDbType.Integer);
+                myCommand.Parameters.Add("@TIME_LOG", FbDbType.TimeStamp);
+                myCommand.Parameters.Add("@TEMP", FbDbType.Float);
+
+                myCommand.Parameters[0].Value = nxt_num_sample;
+                myCommand.Parameters[1].Value = heure_mesure_SBE;
+                myCommand.Parameters[2].Value = temprerature;
+
+                // Execute Update
+                myCommand.ExecuteNonQuery();
+
+                // Commit changes
+                myTransaction.Commit();
+
+                // Free command resources in Firebird Server
+                myCommand.Dispose();
+
+                databaseconnnection.Close();
+
+            }
+            catch (Exception ex)
+            {
+                this.log("BDD exception :" + ex.Message);
+            }
+        }
+
+        void ecriture_awac_wave(DateTime log, DateTime rec, float hm0, float hmax, float tm02, float tp, float tz, float dirtp, float spread, float meandir, int spectre, int methode)
+        {
+            try
+            {
+                string name_table1 = "AWAC_WAVE";
+                FbTransaction myTransaction = databaseconnnection.BeginTransaction();
+
+                FbCommand myCommand = new FbCommand();
+                //log, rec, hm0, hmax, tm02, tp, tz, dirtp, spread, meandir, spectrumbasis, precesmethod
+                myCommand.CommandText =
+                "INSERT INTO " + name_table1 + " (TIME_LOG, TIME_REC, HM0, HMAX, TM02, TP, TZ, DIRTP, SPREAD, MEANDIR,SPECTRUM,METHOD ) VALUES (@TIME_LOG, @TIME_REC, @HM0, @HMAX, @TM02, @TP, @TZ, @DIRTP, @SPREAD, @MEANDIR, @SPECTRUM, @METHOD)";
+                myCommand.Connection = databaseconnnection;
+                myCommand.Transaction = myTransaction;
+
+                myCommand.Parameters.Add("@TIME_LOG", FbDbType.TimeStamp);
+                myCommand.Parameters.Add("@TIME_REC", FbDbType.TimeStamp);
+                myCommand.Parameters.Add("@HM0", FbDbType.Float);
+                myCommand.Parameters.Add("@HMAX", FbDbType.Float);
+                myCommand.Parameters.Add("@TM02", FbDbType.Float);
+                myCommand.Parameters.Add("@TP", FbDbType.Float);
+                myCommand.Parameters.Add("@TZ", FbDbType.Float);
+                myCommand.Parameters.Add("@DIRTP", FbDbType.Float);
+                myCommand.Parameters.Add("@SPREAD", FbDbType.Float);
+                myCommand.Parameters.Add("@MEANDIR", FbDbType.Float);
+                myCommand.Parameters.Add("@SPECTRUM", FbDbType.Integer);
+                myCommand.Parameters.Add("@METHOD", FbDbType.Integer);
+
+
+                myCommand.Parameters[0].Value = log;
+                myCommand.Parameters[1].Value = rec;
+                myCommand.Parameters[2].Value = hm0;
+                myCommand.Parameters[3].Value = hmax;
+                myCommand.Parameters[4].Value = tm02;
+                myCommand.Parameters[5].Value = tp;
+                myCommand.Parameters[6].Value = tz;
+                myCommand.Parameters[7].Value = dirtp;
+                myCommand.Parameters[8].Value = spread;
+                myCommand.Parameters[9].Value = meandir;
+                myCommand.Parameters[10].Value = spectre;
+                myCommand.Parameters[11].Value = methode;
+
+
+                // Execute Update
+                myCommand.ExecuteNonQuery();
+
+                // Commit changes
+                myTransaction.Commit();
+
+                // Free command resources in Firebird Server
+                myCommand.Dispose();
+
+
+            }
+            catch (Exception ex)
+            {
+                this.log("BDD exception :" + ex.Message);
+
+            }
+        }
+
+
+        void ecriture_awac_courant(DateTime log, DateTime rec, int celnumber, float spd, float dir, int amp1, int amp2, int amp3)
+        {
+            try
+            {
+                string name_table1 = "AWAC_COURANT";
+                FbTransaction myTransaction = databaseconnnection.BeginTransaction();
+
+                FbCommand myCommand = new FbCommand();
+
+                myCommand.CommandText =
+                "INSERT INTO " + name_table1 + " (TIME_LOG, TIME_REC, CELLNUM, SPD, DIR, AMP1, AMP2, AMP3) VALUES (@TIME_LOG, @TIME_REC, @CELLNUM, @SPD, @DIR, @AMP1, @AMP2, @AMP3)";
+                myCommand.Connection = databaseconnnection;
+                myCommand.Transaction = myTransaction;
+
+                myCommand.Parameters.Add("@TIME_LOG", FbDbType.TimeStamp);
+                myCommand.Parameters.Add("@TIME_REC", FbDbType.TimeStamp);
+                myCommand.Parameters.Add("@CELLNUM", FbDbType.Integer);
+                myCommand.Parameters.Add("@SPD", FbDbType.Float);
+                myCommand.Parameters.Add("@DIR", FbDbType.Float);
+                myCommand.Parameters.Add("@AMP1", FbDbType.Integer);
+                myCommand.Parameters.Add("@AMP2", FbDbType.Integer);
+                myCommand.Parameters.Add("@AMP3", FbDbType.Integer);
+
+
+                myCommand.Parameters[0].Value = log;
+                myCommand.Parameters[1].Value = rec;
+                myCommand.Parameters[2].Value = celnumber;
+                myCommand.Parameters[3].Value = spd;
+                myCommand.Parameters[4].Value = dir;
+                myCommand.Parameters[5].Value = amp1;
+                myCommand.Parameters[6].Value = amp2;
+                myCommand.Parameters[7].Value = amp3;
+
+
+                // Execute Update
+                myCommand.ExecuteNonQuery();
+
+                // Commit changes
+                myTransaction.Commit();
+
+                // Free command resources in Firebird Server
+                myCommand.Dispose();
+
+
+            }
+            catch (Exception ex)
+            {
+                this.log("BDD exception :" + ex.Message);
+            }
+        }
+
+        void ecriture_awac_sensor(DateTime log, DateTime rec, float batterie, float sound_speed, float heading, float pitch, float roll, float pressure, float temperature, int error, int status)
+        {
+            try
+            {
+                string name_table1 = "AWAC_SENSOR";
+                FbTransaction myTransaction = databaseconnnection.BeginTransaction();
+
+                FbCommand myCommand = new FbCommand();
+
+                myCommand.CommandText =
+                "INSERT INTO " + name_table1 + " (TIME_LOG, TIME_REC, BATTERY, HEADING, PITCH, ROLL, PRESSURE, ERROR, STATUS, TEMPERATURE, SOUND_SPEED) VALUES (@TIME_LOG, @TIME_REC, @BATTERY, @HEADING, @PITCH, @ROLL, @PRESSURE, @ERROR, @STATUS, @TEMPERATURE, @SOUND_SPEED)";
+                myCommand.Connection = databaseconnnection;
+                myCommand.Transaction = myTransaction;
+
+                myCommand.Parameters.Add("@TIME_LOG", FbDbType.TimeStamp);
+                myCommand.Parameters.Add("@TIME_REC", FbDbType.TimeStamp);
+                myCommand.Parameters.Add("@BATTERY", FbDbType.Float);
+                myCommand.Parameters.Add("@HEADING", FbDbType.Float);
+                myCommand.Parameters.Add("@PITCH", FbDbType.Float);
+                myCommand.Parameters.Add("@ROLL", FbDbType.Float);
+                myCommand.Parameters.Add("@PRESSURE", FbDbType.Float);
+                myCommand.Parameters.Add("@ERROR", FbDbType.Integer);
+                myCommand.Parameters.Add("@STATUS", FbDbType.Integer);
+                myCommand.Parameters.Add("@TEMPERATURE", FbDbType.Float);
+                myCommand.Parameters.Add("@SOUND_SPEED", FbDbType.Float);
+
+                myCommand.Parameters[0].Value = log;
+                myCommand.Parameters[1].Value = rec;
+                myCommand.Parameters[2].Value = batterie;
+                myCommand.Parameters[3].Value = heading;
+                myCommand.Parameters[4].Value = pitch;
+                myCommand.Parameters[5].Value = roll;
+                myCommand.Parameters[6].Value = pressure;
+                myCommand.Parameters[7].Value = error;
+                myCommand.Parameters[8].Value = status;
+                myCommand.Parameters[9].Value = temperature;
+                myCommand.Parameters[10].Value = sound_speed;
+
+                // Execute Update
+                myCommand.ExecuteNonQuery();
+
+                // Commit changes
+                myTransaction.Commit();
+
+                // Free command resources in Firebird Server
+                myCommand.Dispose();
+
+
+            }
+            catch (Exception ex)
+            {
+                this.log("BDD exception :" + ex.Message);
+            }
+        }
+
+
+        void ecriture_bdd_wind(string name_table, DateTime heure_mesure_wind, float ws, float wd, float wm, float comp)
+        {
+            try
+            {
+                string name_table1 = name_table;
+
+                FbTransaction myTransaction = databaseconnnection.BeginTransaction();
+
+                FbCommand myCommand = new FbCommand();
+
+                myCommand.CommandText =
+                "INSERT INTO " + name_table1 + " (TIME_REC, VITMOY, DIRMOY, VITMAX, COMPAS) VALUES (@TIME_REC, @VITMOY, @DIRMOY, @VITMAX, @COMPAS)";
+                myCommand.Connection = databaseconnnection;
+                myCommand.Transaction = myTransaction;
+
+
+                myCommand.Parameters.Add("@TIME_REC", FbDbType.TimeStamp);
+                myCommand.Parameters.Add("@VITMOY", FbDbType.Float);
+                myCommand.Parameters.Add("@DIRMOY", FbDbType.Float);
+                myCommand.Parameters.Add("@VITMAX", FbDbType.Float);
+                myCommand.Parameters.Add("@COMPAS", FbDbType.Float);
+
+                myCommand.Parameters[0].Value = heure_mesure_wind;
+                myCommand.Parameters[1].Value = ws;
+                myCommand.Parameters[2].Value = wd;
+                myCommand.Parameters[3].Value = wm;
+                myCommand.Parameters[4].Value = comp;
+
+                // Execute Update
+                myCommand.ExecuteNonQuery();
+
+                // Commit changes
+                myTransaction.Commit();
+
+                // Free command resources in Firebird Server
+                myCommand.Dispose();
+
+
+            }
+            catch (Exception ex)
+            {
+                this.log("BDD exception :" + ex.Message);
+            }
+        }
+
+        private void OpenDataBase()
+        {
+
+            databaseconnnection.StateChange += new System.Data.StateChangeEventHandler(con_StateChange);
+            databaseconnnection.Open();
+
+        }
+
+        void con_StateChange(object sender, System.Data.StateChangeEventArgs e)
+        {
+            if (e.CurrentState == System.Data.ConnectionState.Broken)
+            {
+                // link broken 
+                // periodically retry to connect
+                System.Timers.Timer aTimer = new System.Timers.Timer(60000);
+                aTimer.Elapsed += new System.Timers.ElapsedEventHandler(aTimer_Elapsed);
+                aTimer.Enabled = true;
+            }
+
+        }
+        void aTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            try
+            {
+
+                OpenDataBase();
+                ((System.Timers.Timer)sender).Enabled = false;
+            }
+            catch (Exception)
+            {
+                Console.Beep();
+                Console.WriteLine("Cannot open database !!");
+
+                log("Cannot open database !!");
+            }
+        }
 
 
         ///affichage toutes les minutes
-        void processingmessagethread_affich_param(DateTime timestamplog, DateTime[] date_sbe, float[] temp_sbe, /*DateTime date_compas, float compas, DateTime date_wind, float ws, float wd, float wm,*/ DateTime[] date_courant, float[] spd_cou, float[] dir_cou, DateTime date_houle, float hm0, float tp, float tm02, float hmax, float meandir, float dirtp, DateTime date_pression, float pression)
+        void processingmessagethread_affich_param(DateTime timestamplog, DateTime[] date_sbe, float[] temp_sbe,
+                DateTime[] date_courant, float[] spd_cou, float[] dir_cou, DateTime date_houle, float hm0, float tp,
+                float tm02, float hmax, float meandir, float dirtp, DateTime date_pression, float pression)
         {
             if (this.InvokeRequired)
             {
-                this.BeginInvoke(new ProcessingMessageThread.mesure_SBE(processingmessagethread_affich_param), new object[] { timestamplog, date_sbe, temp_sbe,/* date_compas, compas, date_wind, ws, wd, wm,*/ date_courant, spd_cou, dir_cou, date_houle, hm0, tp, tm02, hmax, meandir, dirtp, date_pression,pression });
+                this.BeginInvoke(new ProcessingMessageThread.mesure_SBE(processingmessagethread_affich_param), new object[] { timestamplog, date_sbe, temp_sbe,
+                    date_courant, spd_cou, dir_cou, date_houle, hm0, tp, tm02, hmax, meandir, dirtp, date_pression,pression });
                 return;
             }
+
+            int y_now = DateTime.Now.Year;
+            for (int i = 0; i < 6; i++)
+            {
+                string table_name = "SBE_" + (i + 1).ToString();
+                
+                if (date_sbe[i].Year >= y_now - 10)
+                {
+                    lock (lock_bdd)
+                    {
+                        ecriture_bdd_sbe(table_name, date_sbe[i], temp_sbe[i], 0);
+                    }
+                }
+
+            }
+
+            DateTime log_d = DateTime.Now;
+            lock (lock_bdd)
+            {
+                ecriture_awac_wave(log_d, date_houle, hm0, hmax, tm02, tp, 0, dirtp, 0, meandir, 0, 0);
+                //ecriture_awac_wave(log_d, date_houle, hm0, hmax, tm02, tp, tz, dirtp, spread, meandir, spectrumbasis, precesmethod);
+            }
+
+
+            if (date_courant.Length == spd_cou.Length && date_courant.Length == dir_cou.Length)
+            {
+                for (int i = 0; i < date_courant.Length; i++)
+                {
+                    if (date_courant[i].Year >= y_now - 10)
+                    {
+                        lock (lock_bdd)
+                        {
+                            ecriture_awac_courant(log_d, date_courant[i], i, spd_cou[i], dir_cou[i], 0, 0, 0);
+                        }
+                    }
+                }
+            }
+
+
+            lock (lock_bdd)
+            {
+                if (date_pression.Year >= y_now - 10)
+                {
+                    ecriture_awac_sensor(log_d, date_pression, 0, 0, 0, 0, 0, pression, 0, 0, 0);
+                }
+            }
+
+
+
+
 
             date_tcpip = DateTime.Now;
             label1.Text = "Date : " + date_tcpip.ToString("dd/MM/yy HH:mm:ss");
             label1.BackColor = Color.Transparent;
-          
-           
+
+            
 
             bool alarm = false;
             //sbe_1
             DateTime test = date_sbe[0].AddMinutes(50);
-            if (test < DateTime.UtcNow) alarm = true;
+            if (test < DateTime.Now) alarm = true;
             label3.Text = "Date : " + date_sbe[0].ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", temp_sbe[0]) + " °C";
             if (alarm)
             {
@@ -305,7 +687,7 @@ namespace visu_cotco
             }
             //sbe_2
             test = date_sbe[1].AddMinutes(50);
-            if (test < DateTime.UtcNow)
+            if (test < DateTime.Now)
             { alarm = true; }
             else { alarm = false; }
             label4.Text = "Date : " + date_sbe[1].ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", temp_sbe[1]) + " °C";
@@ -321,7 +703,7 @@ namespace visu_cotco
             }
             //sbe3
             test = date_sbe[2].AddMinutes(50);
-            if (test < DateTime.UtcNow)
+            if (test < DateTime.Now)
             { alarm = true; }
             else { alarm = false; }
             label5.Text = "Date : " + date_sbe[2].ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", temp_sbe[2]) + " °C";
@@ -337,7 +719,7 @@ namespace visu_cotco
             }
             //sbe4
             test = date_sbe[3].AddMinutes(50);
-            if (test < DateTime.UtcNow)
+            if (test < DateTime.Now)
             { alarm = true; }
             else { alarm = false; }
             label6.Text = "Date : " + date_sbe[3].ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", temp_sbe[3]) + " °C";
@@ -353,7 +735,7 @@ namespace visu_cotco
             }
             //sbe5
             test = date_sbe[4].AddMinutes(50);
-            if (test < DateTime.UtcNow)
+            if (test < DateTime.Now)
             { alarm = true; }
             else { alarm = false; }
             label7.Text = "Date : " + date_sbe[4].ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", temp_sbe[4]) + " °C";
@@ -369,7 +751,7 @@ namespace visu_cotco
             }
             //sbe6
             test = date_sbe[5].AddMinutes(50);
-            if (test < DateTime.UtcNow)
+            if (test < DateTime.Now)
             { alarm = true; }
             else { alarm = false; }
             label8.Text = "Date : " + date_sbe[5].ToString("dd/MM/yy HH:mm:ss") + "  - Temperature : " + string.Format("{0:00.00}", temp_sbe[5]) + " °C";
@@ -387,7 +769,7 @@ namespace visu_cotco
             //courant
             richTextBox1.Clear();
             test = date_courant[0].AddMinutes(50);
-            if (test < DateTime.UtcNow)
+            if (test < DateTime.Now)
             { alarm = true; }
             else { alarm = false; }
 
@@ -414,7 +796,7 @@ namespace visu_cotco
             //houle
 
             test = date_houle.AddMinutes(100);
-            if (test < DateTime.UtcNow)
+            if (test < DateTime.Now)
             { alarm = true; }
             else { alarm = false; }
           
@@ -1447,10 +1829,13 @@ namespace visu_cotco
         object stacklock;
         System.Threading.AutoResetEvent newmessagesignal;
         System.Collections.Generic.Queue<byte[]> stack;
-        public delegate void mesure_SBE (DateTime timestamplog, DateTime[] date_sbe, float[] temp_sbe,/* DateTime date_compas, float compas, DateTime date_wind, float ws, float wd, float wm,*/ DateTime[] date_courant, float [] spd_cou, float [] dir_cou, DateTime date_houle,  float hm0, float tp,float tm02,float hmax,float meandir,float dirtp, DateTime date_pression, float pression);
+        public delegate void mesure_SBE (DateTime timestamplog, DateTime[] date_sbe, float[] temp_sbe, DateTime[] date_courant, float [] spd_cou, float [] dir_cou, DateTime date_houle,  float hm0, float tp,float tm02,float hmax,float meandir,float dirtp, DateTime date_pression, float pression);
         public event mesure_SBE affich_param;
         public delegate void mesure_vent( DateTime date_compas, float compas, DateTime date_wind, float ws, float wd, float wm);
         public event mesure_vent affich_param_vent;
+
+        public string databaseconnectionstring = "";
+
         public ProcessingMessageThread()
         {
             stack = new Queue<byte[]>();
@@ -1511,9 +1896,12 @@ namespace visu_cotco
                 }
             }
         }
-                           
 
-       //
+
+        
+
+
+        //
         public void addMessage(byte[] message)
         {
             lock (stacklock)
