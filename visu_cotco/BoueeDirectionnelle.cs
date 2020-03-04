@@ -6,7 +6,7 @@ namespace visu_cotco
 {
 
 
-    class BoueeDirectionnelle
+    class Trame_COTCO
     {
 
         private DateTime[] date_sbe;
@@ -158,7 +158,7 @@ namespace visu_cotco
         }
 
         
-        public BoueeDirectionnelle( DateTime timestamplog, DateTime[] date_sbe, float[] temp_sbe,/* DateTime date_compas, float compas, DateTime date_wind, float ws, float wd, float wm,*/ DateTime[] date_courant, float [] spd_cou, float [] dir_cou, DateTime date_houle,  float hm0, float tp,float tm02,float hmax,float meandir,float dirtp,DateTime date_pression, float pression)
+        public Trame_COTCO( DateTime timestamplog, DateTime[] date_sbe, float[] temp_sbe,/* DateTime date_compas, float compas, DateTime date_wind, float ws, float wd, float wm,*/ DateTime[] date_courant, float [] spd_cou, float [] dir_cou, DateTime date_houle,  float hm0, float tp,float tm02,float hmax,float meandir,float dirtp,DateTime date_pression, float pression)
         {
             this.timestamplog = timestamplog;
             this.date_sbe = date_sbe;
@@ -184,7 +184,7 @@ namespace visu_cotco
             
         }
 
-        public static BoueeDirectionnelle ParseTrame(Byte[] bytes)
+        public static Trame_COTCO ParseTrame(Byte[] bytes)
         {
             DateTime[] date_sbe = new DateTime[6];
             float[] temp_sbe = new float[6];
@@ -265,7 +265,7 @@ namespace visu_cotco
 
             DateTime timestamplog = DateTime.Now;
 
-            return new BoueeDirectionnelle( timestamplog, date_sbe, temp_sbe, /* date_compas,  compas, date_wind,  ws,  wd,  wm,*/  date_courant,  spd_cou, dir_cou,  date_houle,   hm0,  tp, tm02, hmax,  meandir, dirtp,date_pression,pression);
+            return new Trame_COTCO( timestamplog, date_sbe, temp_sbe, /* date_compas,  compas, date_wind,  ws,  wd,  wm,*/  date_courant,  spd_cou, dir_cou,  date_houle,   hm0,  tp, tm02, hmax,  meandir, dirtp,date_pression,pression);
            
         }
 

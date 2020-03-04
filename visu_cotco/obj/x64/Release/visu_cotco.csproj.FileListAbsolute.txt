@@ -1,6 +1,0 @@
-C:\Users\thierry\Documents\thierry\travail\COTCO_FINAL\visu_cotco\visu_cotco\bin\x64\Release\visu_cotco.exe.config
-C:\Users\thierry\Documents\thierry\travail\COTCO_FINAL\visu_cotco\visu_cotco\obj\x64\Release\visu_cotco.Form1.resources
-C:\Users\thierry\Documents\thierry\travail\COTCO_FINAL\visu_cotco\visu_cotco\obj\x64\Release\visu_cotco.Properties.Resources.resources
-C:\Users\thierry\Documents\thierry\travail\COTCO_FINAL\visu_cotco\visu_cotco\obj\x64\Release\visu_cotco.csproj.GenerateResource.Cache
-C:\Users\thierry\Documents\thierry\travail\COTCO_FINAL\visu_cotco\visu_cotco\obj\x64\Release\visu_cotco.exe.licenses
-C:\Users\thierry\Documents\thierry\travail\COTCO_FINAL\visu_cotco\visu_cotco\obj\x64\Release\visu_cotco.csprojResolveAssemblyReference.cache
