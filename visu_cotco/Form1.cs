@@ -339,9 +339,7 @@ namespace visu_cotco
                 myTransaction.Commit();
 
                 // Free command resources in Firebird Server
-                myCommand.Dispose();
-
-                databaseconnnection.Close();
+                myCommand.Dispose(); 
 
             }
             catch (Exception ex)
