@@ -35,7 +35,8 @@ namespace visu_cotco
         string log_path = "";
       
          //public static string databaseconnectionstring = "Server=192.168.127.1;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=false;Charser=NONE;Database=d:\\COTCO.FDB";
-        public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=false;Charser=NONE;Database=D:\\DATABASE\\COTCO_VISU.FDB";
+        //public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=false;Charser=NONE;Database=D:\\DATABASE\\COTCO_VISU.FDB";
+        public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=true;Charser=NONE;Database=C:\\Users\\dbelt\\Downloads\\COTCO_VISU.FDB";
         FbConnection databaseconnnection;
         object lock_bdd;
         //public static string databaseconnectionstring_vent = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=true;Charser=NONE;Database=D:\\COTCO_VENT.FDB";
@@ -1871,20 +1872,22 @@ namespace visu_cotco
                         try
                         {
                             frame = Trame_COTCO.ParseTrame(message);
-                            if (affich_param != null ) affich_param(frame.Timestamplog, frame.Date_sbe, frame.Temp_sbe,/*waves.Date_compas,waves.Compas,waves.Date_wind,waves.Ws,waves.Wd,waves.Wm,*/
+                            if (affich_param != null ) affich_param(frame.Timestamplog, frame.Date_sbe, frame.Temp_sbe,/*frame.Date_compas, frame.Compas, frame.Date_wind, frame.Ws, frame.Wd, frame.Wm,*/
                                 frame.Date_courant, frame.Spd_cou, frame.Dir_cou, frame.Date_houle, frame.Hm0, frame.Tp, frame.Tm02, frame.Hmax, frame.Meandir, frame.Dirtp, frame.Date_pression, frame.Pression);
+
+                            if (affich_param_vent != null) affich_param_vent(frame.Date_compas, frame.Compas, frame.Date_wind, frame.Ws, frame.Wd, frame.Wm);
                         }
                         catch { }
 
-                        if (frame == null)
-                        {
-                            try
-                            {
-                                wind = wind.ParseTrame(message);
-                                if (affich_param_vent != null) affich_param_vent(wind.Date_compas,wind.Compas,wind.Date_wind,wind.Ws,wind.Wd,wind.Wm);
-                            }
-                            catch { }
-                        }
+                        //if (frame == null)
+                        //{
+                        //    try
+                        //    {
+                        //        wind = wind.ParseTrame(message);
+                        //        if (affich_param_vent != null) affich_param_vent(wind.Date_compas,wind.Compas,wind.Date_wind,wind.Ws,wind.Wd,wind.Wm);
+                        //    }
+                        //    catch { }
+                        //}
 
                     }
                     else

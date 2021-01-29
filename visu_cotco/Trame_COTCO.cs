@@ -11,10 +11,10 @@ namespace visu_cotco
 
         private DateTime[] date_sbe;
         float[] temp_sbe;
-       // DateTime date_compas;
-       // float compas;
-       // DateTime date_wind;
-       // float ws, wd, wm;
+        DateTime date_compas;
+        float compas;
+        DateTime date_wind;
+        float ws, wd, wm;
         DateTime [] date_courant;
         float[] spd_cou;
         float[] dir_cou;
@@ -60,7 +60,7 @@ namespace visu_cotco
             set { temp_sbe = value; }
         }
 
-      /*  public DateTime Date_compas
+        public DateTime Date_compas
         {
             get { return date_compas; }
             set { date_compas = value; }
@@ -94,7 +94,7 @@ namespace visu_cotco
         {
             get { return wm; }
             set { wm = value; }
-        }*/
+        }
 
         public DateTime[] Date_courant
         {
@@ -158,17 +158,17 @@ namespace visu_cotco
         }
 
         
-        public Trame_COTCO( DateTime timestamplog, DateTime[] date_sbe, float[] temp_sbe,/* DateTime date_compas, float compas, DateTime date_wind, float ws, float wd, float wm,*/ DateTime[] date_courant, float [] spd_cou, float [] dir_cou, DateTime date_houle,  float hm0, float tp,float tm02,float hmax,float meandir,float dirtp,DateTime date_pression, float pression)
+        public Trame_COTCO( DateTime timestamplog, DateTime[] date_sbe, float[] temp_sbe, DateTime date_compas, float compas, DateTime date_wind, float ws, float wd, float wm, DateTime[] date_courant, float [] spd_cou, float [] dir_cou, DateTime date_houle,  float hm0, float tp,float tm02,float hmax,float meandir,float dirtp,DateTime date_pression, float pression)
         {
             this.timestamplog = timestamplog;
             this.date_sbe = date_sbe;
             this.temp_sbe = temp_sbe;
-           /* this.date_compas = date_compas;
+            this.date_compas = date_compas;
             this.compas = compas;
             this.date_wind = date_wind;
             this.ws = ws;
             this.wd = wd;
-            this.wm = wm;*/
+            this.wm = wm;
             this.date_courant = date_courant;
             this.spd_cou = spd_cou;
             this.dir_cou = dir_cou;
@@ -219,18 +219,18 @@ namespace visu_cotco
                 index += 4;
             }
 
-            //date_compas = DateTime.FromOADate(BitConverter.ToDouble(bytes, index));
+            date_compas = DateTime.FromOADate(BitConverter.ToDouble(bytes, index));
             index += 8;
-            //compas = BitConverter.ToSingle(bytes, index);
+            compas = BitConverter.ToSingle(bytes, index);
             index += 4;
 
-            //date_wind = DateTime.FromOADate(BitConverter.ToDouble(bytes, index));
+            date_wind = DateTime.FromOADate(BitConverter.ToDouble(bytes, index));
             index += 8;
-            //ws = BitConverter.ToSingle(bytes, index);
+            ws = BitConverter.ToSingle(bytes, index);
             index += 4;
-            //wd = BitConverter.ToSingle(bytes, index);
+            wd = BitConverter.ToSingle(bytes, index);
             index += 4;
-            //wm = BitConverter.ToSingle(bytes, index);
+            wm = BitConverter.ToSingle(bytes, index);
             index += 4;
 
            
@@ -265,7 +265,7 @@ namespace visu_cotco
 
             DateTime timestamplog = DateTime.Now;
 
-            return new Trame_COTCO( timestamplog, date_sbe, temp_sbe, /* date_compas,  compas, date_wind,  ws,  wd,  wm,*/  date_courant,  spd_cou, dir_cou,  date_houle,   hm0,  tp, tm02, hmax,  meandir, dirtp,date_pression,pression);
+            return new Trame_COTCO( timestamplog, date_sbe, temp_sbe, date_compas,  compas, date_wind,  ws,  wd,  wm, date_courant,  spd_cou, dir_cou,  date_houle,   hm0,  tp, tm02, hmax,  meandir, dirtp,date_pression,pression);
            
         }
 
