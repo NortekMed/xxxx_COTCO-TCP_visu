@@ -16,7 +16,7 @@ namespace visu_cotco
     
     public partial class Form1 : Form
     {
-
+        string version = "";
         
         SmallServer smallserver = null;
         ProcessingMessageThread processingmessagethread;
@@ -35,8 +35,8 @@ namespace visu_cotco
         string log_path = "";
       
          //public static string databaseconnectionstring = "Server=192.168.127.1;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=false;Charser=NONE;Database=d:\\COTCO.FDB";
-        //public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=false;Charser=NONE;Database=D:\\DATABASE\\COTCO_VISU.FDB";
-        public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=true;Charser=NONE;Database=C:\\Users\\dbelt\\Downloads\\COTCO_VISU.FDB";
+        public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=false;Charser=NONE;Database=D:\\DATABASE\\COTCO_VISU.FDB";
+        //public static string databaseconnectionstring = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=true;Charser=NONE;Database=C:\\Users\\dbelt\\Downloads\\COTCO_VISU.FDB";
         FbConnection databaseconnnection;
         object lock_bdd;
         //public static string databaseconnectionstring_vent = "Server=localhost;User=SYSDBA;Password=masterkey;Port=3050;Dialect=3;Pooling=true;Charser=NONE;Database=D:\\COTCO_VENT.FDB";
@@ -57,7 +57,10 @@ namespace visu_cotco
 
             System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
             string[] token = assembly.FullName.Split(new char[] { ',' });
-            this.Text = "Visualisation " + token[1];
+            version = token[1];
+            this.Text = "Visualisation " + version;
+
+            log("staring application - " + version);
 
 
             databaseconnnection = new FbConnection(databaseconnectionstring);
@@ -195,9 +198,12 @@ namespace visu_cotco
             //vent
             bool alarm = false;
             DateTime test = date_wind.AddMinutes(50);
+            
             if (test < DateTime.Now)
             { alarm = true; }
             else { alarm = false; }
+
+
             label17.Text = "Date : " + date_wind.ToString("dd/MM/yy HH:mm:ss");
             label18.Text = "VitMoy : " + string.Format("{0:0.00}", ws) + " knots";
             label19.Text = "DirMoy : " + string.Format("{0:0.0}", wd) + " °";
